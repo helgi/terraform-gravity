@@ -14,7 +14,7 @@ data "aws_iam_policy_document" "sqs-autoscale-lifecycle-hook-assume-role-policy"
 
     principals {
       type        = "Service"
-      identifiers = ["ec2.amazonaws.com"]
+      identifiers = ["autoscaling.amazonaws.com"]
     }
   }
 }
