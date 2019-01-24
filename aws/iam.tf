@@ -30,16 +30,20 @@ data "aws_iam_policy_document" "master-instance-kubernetes-operations" {
       "autoscaling:SetDesiredCapacity",
       "autoscaling:TerminateInstanceInAutoScalingGroup",
     ]
+
+    resources = ["*"]
   }
 
   // Manage all EC2 operations
   statement {
-    actions = ["ec2:*"]
+    actions   = ["ec2:*"]
+    resources = ["*"]
   }
 
   // Manage all LB operations
   statement {
-    actions = ["elasticloadbalancing:*"]
+    actions   = ["elasticloadbalancing:*"]
+    resources = ["*"]
   }
 
   // Masters can do read-only ECR operations
@@ -53,6 +57,8 @@ data "aws_iam_policy_document" "master-instance-kubernetes-operations" {
       "ecr:ListImages",
       "ecr:BatchGetImage",
     ]
+
+    resources = ["*"]
   }
 
   // Route53 Management
@@ -63,6 +69,8 @@ data "aws_iam_policy_document" "master-instance-kubernetes-operations" {
       "route53:ChangeResourceRecordSets",
       "route53:GetChange",
     ]
+
+    resources = ["*"]
   }
 
   //TODO(knisbet) make sure s3 bucket permissions are optional / uses dl_url to get the specific object
@@ -161,6 +169,8 @@ data "aws_iam_policy_document" "worker-instance-kubernetes-operations" {
       "ec2:AttachVolume",
       "ec2:DetachVolume",
     ]
+
+    resources = ["*"]
   }
 
   // Workers can manage routes for themselves
@@ -170,6 +180,8 @@ data "aws_iam_policy_document" "worker-instance-kubernetes-operations" {
       "ec2:DeleteRoute",
       "ec2:ReplaceRoute",
     ]
+
+    resources = ["*"]
   }
 
   // Workers can do read-only ECR operations
@@ -183,11 +195,14 @@ data "aws_iam_policy_document" "worker-instance-kubernetes-operations" {
       "ecr:ListImages",
       "ecr:BatchGetImage",
     ]
+
+    resources = ["*"]
   }
 
   // Workers can describe LBs
   statement {
-    actions = ["elasticloadbalancing:DescribeLoadBalancers"]
+    actions   = ["elasticloadbalancing:DescribeLoadBalancers"]
+    resources = ["*"]
   }
 }
 
